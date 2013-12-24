@@ -1,0 +1,23 @@
+inherit python
+
+NAME="libimobiledevice"
+VERSION=1.1.5
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Library for connecting with iOS devices"
+DESCRIPTION="A library to communicate with services of Apple iOS devices using
+native protocols."
+HOMEPAGE="http://www.libimobiledevice.org/"
+SRC_URI="http://www.libimobiledevice.org/downloads/${NAME}-${VERSION}.tar.bz2"
+PATCH_URI="1.1.5-python-build.patch"
+
+PKG_NAMES="${NAME} ${NAME}4 ${NAME}-devel python-imobiledevice"
+libimobiledevice_CATEGORY="Utils"
+libimobiledevice_SUMMARY=${SUMMARY/Library/Utilities}
+libimobiledevice_CONTENTS="usr/bin/idevice*.exe usr/share/doc/ usr/share/man/man1/"
+libimobiledevice4_CONTENTS="usr/bin/cygimobiledevice-4.dll"
+libimobiledevice_devel_CONTENTS="usr/include/ usr/lib/lib* usr/lib/pkgconfig/"
+python_imobiledevice_REQUIRES="python-plist"
+python_imobiledevice_CONTENTS=${PYTHON_SITELIB#/}
+
+DIFF_EXCLUDES="Makefile"

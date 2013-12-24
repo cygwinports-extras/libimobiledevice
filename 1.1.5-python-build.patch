@@ -1,0 +1,24 @@
+--- origsrc/libimobiledevice-1.1.5/cython/Makefile.am	2013-03-07 16:05:33.000000000 -0600
++++ src/libimobiledevice-1.1.5/cython/Makefile.am	2013-12-24 04:08:30.601604100 -0600
+@@ -36,8 +36,8 @@ EXTRA_DIST = imobiledevice.pyx imobilede
+ imobiledevicedir = $(pyexecdir)
+ imobiledevice_LTLIBRARIES = imobiledevice.la
+ imobiledevice_la_SOURCES = imobiledevice.pyx
+-imobiledevice_la_CFLAGS = -I../include -I../src $(PYTHON_CPPFLAGS) $(AM_CFLAGS) -Wno-shadow -Wno-redundant-decls -Wno-switch-default -Wno-strict-aliasing -Wno-implicit-function-declaration
+-imobiledevice_la_LDFLAGS = -module -avoid-version -L$(libdir) $(PYTHON_LDFLAGS) $(AM_LDFLAGS)
++imobiledevice_la_CFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/src $(PYTHON_CPPFLAGS) $(AM_CFLAGS) -Wno-shadow -Wno-redundant-decls -Wno-switch-default -Wno-strict-aliasing -Wno-implicit-function-declaration
++imobiledevice_la_LDFLAGS = -module -avoid-version -no-undefined -L$(libdir) $(PYTHON_LDFLAGS) $(AM_LDFLAGS)
+ imobiledevice_la_LIBADD = ../src/libimobiledevice.la
+ 
+ imobiledevice.c: imobiledevice.pyx $(PXDINCLUDES) $(PXIINCLUDES)
+--- origsrc/libimobiledevice-1.1.5/cython/lockdown.pxi	2013-03-07 16:05:33.000000000 -0600
++++ src/libimobiledevice-1.1.5/cython/lockdown.pxi	2013-12-24 05:28:27.347962300 -0600
+@@ -219,7 +219,7 @@ cdef class LockdownClient(PropertyListSe
+         cdef:
+             lockdownd_error_t err
+             char* c_session_id = NULL
+-            bint ssl_enabled
++            int ssl_enabled
+             bytes session_id
+         err = lockdownd_start_session(self._c_client, host_id, &c_session_id, &ssl_enabled)
+         try:
